@@ -14,22 +14,7 @@ def index(request):
         'participantes':participantes
     }
     return render(request,'index.html',context)
-def borrar(request,id):
-    DetalleParticipantes().delete(request,id)
-    return redirect("/")
 
-def crear(request):
-    return render(request, "create.html")
-
-def editar(request,id):
-    participante = DetalleParticipantes().get_object(id)
-    participante = ParticipanteSerializer(participante)
-    estados = Estados
-    context = {
-        'participante':participante.data,
-        'estados':estados
-    }
-    return render(request, "edit.html",context)
 
 def create(request):
     setattr(request, 'data', request.POST)
@@ -39,10 +24,22 @@ def create(request):
             messages.error(request, v)
         return redirect("/")
     return redirect("/")
-
+def editar(request,id):
+    participante = DetalleParticipantes().get_object(id)
+    participante = ParticipanteSerializer(participante)
+    estados = Estados
+    context = {
+        'participante':participante.data,
+        'estados':estados
+    }
+    return render(request, "edit.html",context)
 def edit(request):
     setattr(request, 'data', request.POST)
     print(request.POST.get('id'))
     rut=request.POST.get('id')
     DetalleParticipantes().put(request, rut)
+    return redirect("/")
+
+def borrar(request,id):
+    DetalleParticipantes().delete(request,id)
     return redirect("/")
