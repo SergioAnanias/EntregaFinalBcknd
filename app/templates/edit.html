@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="btn btn-primary" href="/">Volver</a>
+<form class="col-6 offset-3 mt-2" method="POST" action="/edit">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id">RUT</label>
+        <input type="text" class="form-control" id="id" name="id" value="{{participante.id}}" disabled>
+    </div>
+    <input type="hidden" name="id" value="{{participante.id}}">
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="{{participante.nombre}}">
+    </div>
+    <div class="form-group">
+        <label for="fecha_inscripcion">Fecha</label>
+        <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" value="{{participante.fecha_inscripcion}}" >
+    </div>
+    <div class="form-group">
+        <label for="hora">Hora</label>
+        <input type="time" class="form-control" id="hora" name="hora" value="{{participante.hora}}" >
+    </div>
+    <div class="form-group">
+        <label for="institucion">Institución</label>
+        <input type="text" class="form-control" id="institucion" name="institucion" value="{{participante.institucion}}">
+    </div>
+    <div class="form-group">
+        <label for="estado">Estado</label>
+        <select class="form-control" id="estado" name="estado">
+            {% for estado in estados %}
+            <option value={{ estado.value }}>{{ estado.value }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="observacion">Observación</label>
+        <input type="text" class="form-control" id="observacion" name="observacion" value="{{participante.observacion}}">
+    </div>
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
+{% endblock %}

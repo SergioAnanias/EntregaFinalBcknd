@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">RUT</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha de Inscripción</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Institución</th>
+            <th scope="col">Observación</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for participante in participantes %}
+        <tr>
+            <th scope="row">{{participante.id}}</th>
+            <td>{{participante.nombre}}</td>
+            <td>{{participante.fecha_inscripcion}}</td>
+            <td>{{participante.hora}}</td>
+            <td>{{participante.estado}}</td>
+            <td>{{participante.institucion}}</td>
+            <td>{{participante.observacion}}</td>
+            <td>
+                <a href="delete/{{participante.id}}">Borrar</a>
+                <a href="editar/{{participante.id}}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+<!-- Button trigger modal -->
+<div class="d-flex justify-content-end ml-3 mb-3">
+    <a class="mt-4 mb-3 fa-solid fa-calendar-plus fa-2xl" href="#" data-toggle="modal" data-target="#exampleModal">
+    </a>
+</div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nuevo Participante</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="/create">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id">RUT</label>
+                    <input type="text" class="form-control" id="id" name="id" >
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" >
+                </div>
+                <div class="form-group">
+                    <label for="fecha_inscripcion">Fecha</label>
+                    <input type="date" class="form-control" id="fecha_inscripcion" name="fecha_inscripcion" >
+                </div>
+                <div class="form-group">
+                    <label for="hora">Hora</label>
+                    <input type="time" class="form-control" id="hora" name="hora" >
+                </div>
+                <div class="form-group">
+                    <label for="institucion">Institución</label>
+                    <input type="text" class="form-control" id="institucion" name="institucion">
+                </div>
+                <div class="form-group">
+                    <label for="observacion">Observación</label>
+                    <input type="text" class="form-control" id="observacion" name="observacion">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

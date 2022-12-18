@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {% block titulo %} {% endblock %} - Prueba Final Backend </title>
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.foundation.min.css"
+            integrity="sha512-jyhJOXPqmwwlzhhy2/7edoig3tkyTClebiDZsV2zGb5k4nBol09WyZhK7w1KLl11q79UJjPWgybVu1m52cVehw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/toastr.min.css' %}"> 
+        <link rel="icon" href="{% static 'images/favicon.ico'%}">
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+        <script src="https://kit.fontawesome.com/4087230859.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/toastr.min.js' %}"></script>
+        <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("table").DataTable();
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toast-bottom-right",
+                };
+                {% if messages %}
+                {% for message in messages %}
+                toastr.{{ message.tags }} ("{{message}}"); {# Esto muestra mensajes de error o success por medio de toastrs #}
+                {% endfor %}
+                {% endif %}
+            })
+        </script>
+    </head>
+
+    <body>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+
+            {% block form %}
+            {% endblock %}
+
+        </div>
+    </body>
+
+
+</html>
